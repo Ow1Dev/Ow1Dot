@@ -1,0 +1,11 @@
+export GIT_EDITOR=nvim
+export EDITOR=nvim
+
+
+export SHELL=$(which zsh)
+
+path+=~/.local/scripts
+
+export PATH
+
+. "$HOME/.cargo/env"
