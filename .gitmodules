@@ -1,0 +1,3 @@
+[submodule "Ow1Nvim"]
+	path = Ow1Nvim
+	url = git@github.com:Ow1Dev/Ow1Nvim.git
