@@ -7,6 +7,11 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
     XDG_CONFIG_HOME=$HOME/.config
 fi
 
+if [ ! -d "$XDG_CONFIG_HOME" ]; then
+    echo "Creating config directory at $XDG_CONFIG_HOME"
+    mkdir -p "$XDG_CONFIG_HOME"
+fi
+
 if [ -z "$DEV_ENV" ]; then
     echo "env var DEV_ENV needs to be present"
     exit 1
