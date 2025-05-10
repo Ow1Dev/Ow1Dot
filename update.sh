@@ -1,5 +1,21 @@
 #!/bin/bash
-dry_run="0"
+
+OK="$(tput setaf 2)[OK]$(tput sgr0)"
+ERROR="$(tput setaf 1)[ERROR]$(tput sgr0)"
+NOTE="$(tput setaf 3)[NOTE]$(tput sgr0)"
+INFO="$(tput setaf 4)[INFO]$(tput sgr0)"
+WARN="$(tput setaf 1)[WARN]$(tput sgr0)"
+CAT="$(tput setaf 6)[ACTION]$(tput sgr0)"
+MAGENTA="$(tput setaf 5)"
+ORANGE="$(tput setaf 214)"
+WARNING="$(tput setaf 1)"
+YELLOW="$(tput setaf 3)"
+GREEN="$(tput setaf 2)"
+BLUE="$(tput setaf 4)"
+SKY_BLUE="$(tput setaf 6)"
+RESET="$(tput sgr0)"
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
     echo "no xdg config home"
@@ -12,16 +28,9 @@ if [ ! -d "$XDG_CONFIG_HOME" ]; then
     mkdir -p "$XDG_CONFIG_HOME"
 fi
 
-if [ -z "$DEV_ENV" ]; then
-    echo "env var DEV_ENV needs to be present"
-    exit 1
-fi
-
 log() {
   echo "$1"
 }
-
-log "env: $DEV_ENV"
 
 update_files() {
     log "copying over files from: $1"
@@ -30,16 +39,13 @@ update_files() {
         configs=`find . -mindepth 1 -maxdepth 1 -type d`
         for c in $configs; do
             directory=${2%/}/${c#./}
-            log "    removing: rm -rf $directory"
-
-            if [[ $dry_run == "0" ]]; then
-                rm -rf $directory
+            if [ -d "$directory" ]; then
+              log "    removing: rm -rf $directory"
+              rm -rf $directory
             fi
 
             log "    copying env: cp $c $2"
-            if [[ $dry_run == "0" ]]; then
-                cp -r ./$c $2
-            fi
+            cp -r ./$c $2
         done
 
     )
@@ -47,18 +53,16 @@ update_files() {
 }
 
 copy() {
-    log "removing: $2"
-    if [[ $dry_run == "0" ]]; then
-        rm $2
+    if [ -e "$dest" ]; then
+      log "removing: $2"
+      rm $2
     fi
+
     log "copying: $1 to $2"
-    if [[ $dry_run == "0" ]]; then
-        cp $1 $2
-    fi
+    cp $1 $2
 }
 
-update_files $DEV_ENV/env/.config $XDG_CONFIG_HOME
+update_files $script_dir/env/.config $XDG_CONFIG_HOME
 
-
-copy $DEV_ENV/env/.zshrc $HOME/.zshrc
-copy $DEV_ENV/env/.zsh_profile $HOME/.zsh_profile
+copy $script_dir/env/.zshrc $HOME/.zshrc
+copy $script_dir/env/.zsh_profile $HOME/.zsh_profile

@@ -1,5 +1,20 @@
 #!/usr/bin/env bash
 
-sudo pacman -S --noconfirm zsh starship
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Change the working directory to the parent directory of the script
+PARENT_DIR="$SCRIPT_DIR/.."
+cd "$PARENT_DIR" || { echo "${ERROR} Failed to change directory to $PARENT_DIR"; exit 1; }
+
+if ! source "$(dirname "$(readlink -f "$0")")/../utils/functions.sh"; then
+  echo "Failed to source functions.sh"
+  exit 1
+fi
+
+LOG="Install-Logs/install-$(date +%d-%H%M%S)_zsh.log"
+
+install_package_pacman zsh "$LOG"
+install_package_pacman starship "$LOG"
+
 hash -r
 sudo chsh -s $(which zsh)
