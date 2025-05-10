@@ -18,33 +18,28 @@ RESET="$(tput sgr0)"
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [ -z "$XDG_CONFIG_HOME" ]; then
-    echo "no xdg config home"
-    echo "using ~/.config"
+    echo "$NOTE no xdg config home. using ~/.config"
     XDG_CONFIG_HOME=$HOME/.config
 fi
 
 if [ ! -d "$XDG_CONFIG_HOME" ]; then
-    echo "Creating config directory at $XDG_CONFIG_HOME"
+    echo "$NOTE Creating config directory at $XDG_CONFIG_HOME"
     mkdir -p "$XDG_CONFIG_HOME"
 fi
 
-log() {
-  echo "$1"
-}
-
 update_files() {
-    log "copying over files from: $1"
+    echo "$NOTE copying over files from: $1"
     pushd $1 &> /dev/null
     (
         configs=`find . -mindepth 1 -maxdepth 1 -type d`
         for c in $configs; do
             directory=${2%/}/${c#./}
             if [ -d "$directory" ]; then
-              log "    removing: rm -rf $directory"
+              echo "    removing: rm -rf $directory"
               rm -rf $directory
             fi
 
-            log "    copying env: cp $c $2"
+            echo "    copying env: cp $c $2"
             cp -r ./$c $2
         done
 
@@ -54,11 +49,11 @@ update_files() {
 
 copy() {
     if [ -e "$dest" ]; then
-      log "removing: $2"
+      echo "removing: $2"
       rm $2
     fi
 
-    log "copying: $1 to $2"
+    echo "copying: $1 to $2"
     cp $1 $2
 }
 

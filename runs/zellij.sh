@@ -11,6 +11,6 @@ if ! source "$(dirname "$(readlink -f "$0")")/../utils/functions.sh"; then
   exit 1
 fi
 
-LOG="Install-Logs/install-$(date +%d-%H%M%S)_zoxide.log"
+LOG="Install-Logs/install-$(date +%d-%H%M%S)_zellij.log"
 
-install_package_pacman zoxide "$LOG"
+install_package_pacman zellij "$LOG"

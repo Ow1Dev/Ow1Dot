@@ -19,6 +19,15 @@ RESET="$(tput sgr0)"
 
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
+if ! command -v git &> /dev/null
+then
+    echo "${INFO} Git not found! ${SKY_BLUE}Installing Git...${RESET}"
+    if ! sudo pacman -S git --noconfirm; then
+        echo "${ERROR} Failed to install Git. Exiting."
+        exit 1
+    fi
+fi
+
 if pacman -Q base-devel &> /dev/null; then
     echo "base-devel is already installed."
 else
