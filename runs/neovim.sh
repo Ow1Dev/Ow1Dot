@@ -14,3 +14,4 @@ fi
 LOG="Install-Logs/install-$(date +%d-%H%M%S)_nvim.log"
 
 install_package_pacman neovim "$LOG"
+install_package_pacman ripgrep "$LOG"

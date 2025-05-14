@@ -5,10 +5,10 @@
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl a" { SwitchToMode "normal"; }
-        bind "Ctrl alt h" { MoveFocus "left"; }
-        bind "Ctrl alt j" { MoveFocus "down"; }
-        bind "Ctrl alt k" { MoveFocus "up"; }
-        bind "Ctrl alt l" { MoveFocus "right"; }
+        bind "Shift alt h" { MoveFocus "left"; }
+        bind "Shift alt j" { MoveFocus "down"; }
+        bind "Shift alt k" { MoveFocus "up"; }
+        bind "Shift alt l" { MoveFocus "right"; }
     }
     resize {
         bind "h" { Resize "Increase left"; }
