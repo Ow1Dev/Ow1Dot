@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Change the working directory to the parent directory of the script
@@ -9,6 +11,6 @@ if ! source "$(dirname "$(readlink -f "$0")")/../utils/functions.sh"; then
   exit 1
 fi
 
-LOG="Install-Logs/install-$(date +%d-%H%M%S)_direnv.log"
+LOG="Install-Logs/install-$(date +%d-%H%M%S)_github-cli.log"
 
-install_package_pacman direnv "$LOG"
+install_package_pacman github-cli "$LOG"
