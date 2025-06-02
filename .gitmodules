@@ -1,3 +1,9 @@
 [submodule "Ow1Nvim"]
 	path = env/.config/nvim
 	url = git@github.com:Ow1Dev/Ow1Nvim.git
+[submodule "env/.config/zsh/plugins/zsh-autosuggestions"]
+	path = env/.config/zsh/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "env/.config/zsh/plugins/zsh-syntax-highlighting"]
+	path = env/.config/zsh/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
