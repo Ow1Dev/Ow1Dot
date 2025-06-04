@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Change the working directory to the parent directory of the script
-PARENT_DIR="$SCRIPT_DIR/.."
-cd "$PARENT_DIR" || { echo "${ERROR} Failed to change directory to $PARENT_DIR"; exit 1; }
-
-if ! source "$(dirname "$(readlink -f "$0")")/../utils/functions.sh"; then
-  echo "Failed to source functions.sh"
-  exit 1
+# Check if already installed
+if command -v nix &>/dev/null; then
+  echo " Nix is already installed." | tee -a "$LOG"
+  exit 0
 fi
 
-LOG="Install-Logs/install-$(date +%d-%H%M%S)_nix.log"
+# Install multi-user Nix
+echo "⬇️  Installing Nix (multi-user mode with daemon)..." | tee -a "$LOG"
+sh <(curl -L https://nixos.org/nix/install) --daemon 2>&1 | tee -a "$LOG"
 
-install_package_pacman nix "$LOG"
+# Enable and start the nix-daemon
+echo "🔧 Enabling nix-daemon..." | tee -a "$LOG"
+sudo systemctl enable --now nix-daemon.service nix-daemon.socket 2>&1 | tee -a "$LOG"
+
+# Suggest shell config update
+echo -e "\n Nix installed." | tee -a "$LOG"
