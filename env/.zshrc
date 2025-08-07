@@ -12,6 +12,7 @@ source $HOME/.zsh_profile
 source $HOME/.cargo/env # rust
 
 export PATH=$PATH:$HOME/.vorpal/bin # go
+export PATH=$PATH:$HOME/.local/share/ow1/bin # go
 
 alias ls='ls --color=auto -hv'
 
@@ -21,6 +22,8 @@ alias la='ls -lA'
 
 alias zlj="zellij"
 alias zj="zellij -l welcome"
+
+alias wt="git worktree"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
