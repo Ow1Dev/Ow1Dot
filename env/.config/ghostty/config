@@ -1,0 +1,12 @@
+font-family = "JetBrainsMono Nerd Font"
+
+adjust-cursor-thickness = 3
+cursor-color = ffffff
+
+theme = Nord 
+
+mouse-hide-while-typing = true
+
+title = " "
+
+mouse-scroll-multiplier = 0.5
